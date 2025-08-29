@@ -1,1 +1,138 @@
-
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1e293b" />
+    
+    <!-- Meta tags para SEO -->
+    <meta name="description" content="Panel de gestión profesional para Quasart Style - Gestiona tu negocio de ropa vintage de manera eficiente" />
+    <meta name="keywords" content="quasart style, dashboard, gestión, inventario, ropa vintage, vinted, business" />
+    <meta name="author" content="Quasart Style" />
+    
+    <!-- Open Graph para redes sociales -->
+    <meta property="og:title" content="Quasart Style - Panel de Gestión" />
+    <meta property="og:description" content="Dashboard profesional para gestionar tu negocio de ropa vintage" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="%PUBLIC_URL%/logo512.png" />
+    
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Quasart Style - Panel de Gestión" />
+    <meta name="twitter:description" content="Dashboard profesional para gestionar tu negocio de ropa vintage" />
+    
+    <!-- Favicon y app icons -->
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    
+    <!-- Preconnect para mejorar rendimiento -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fuente Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <title>Quasart Style - Panel de Gestión</title>
+    
+    <!-- Estilos inline críticos -->
+    <style>
+      /* Loading screen */
+      #loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        font-family: 'Inter', sans-serif;
+      }
+      
+      .loading-content {
+        text-align: center;
+        color: #334155;
+      }
+      
+      .loading-logo {
+        width: 80px;
+        height: 80px;
+        background: #1e293b;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        box-shadow: 0 10px 25px rgba(30, 41, 59, 0.15);
+      }
+      
+      .loading-logo span {
+        color: white;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      
+      .loading-spinner {
+        width: 32px;
+        height: 32px;
+        border: 3px solid #e2e8f0;
+        border-top: 3px solid #1e293b;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* Hide loading screen when React loads */
+      .loaded #loading-screen {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <div style="text-align: center; padding: 50px; font-family: 'Inter', sans-serif;">
+        <h2>JavaScript requerido</h2>
+        <p>Necesitas habilitar JavaScript para usar Quasart Style Dashboard.</p>
+        <p>Por favor, habilita JavaScript en tu navegador y recarga la página.</p>
+      </div>
+    </noscript>
+    
+    <!-- Loading screen -->
+    <div id="loading-screen">
+      <div class="loading-content">
+        <div class="loading-logo">
+          <span>QS</span>
+        </div>
+        <h2 style="margin-bottom: 10px; font-weight: 600;">Quasart Style</h2>
+        <p style="color: #64748b; margin-bottom: 0;">Cargando tu panel de gestión...</p>
+        <div class="loading-spinner"></div>
+      </div>
+    </div>
+    
+    <!-- Root div donde se montará React -->
+    <div id="root"></div>
+    
+    <!-- Script para ocultar loading cuando React carga -->
+    <script>
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          document.body.classList.add('loaded');
+        }, 500);
+      });
+    </script>
+    
+    <!-- 
+      Este HTML será reemplazado por React.
+      Para desarrollo, los archivos estáticos se sirven desde el servidor de desarrollo.
+      En producción, se servirán desde el directorio build.
+    -->
+  </body>
+</html>
