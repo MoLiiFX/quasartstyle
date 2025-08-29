@@ -1,0 +1,252 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Importar fuente Inter desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* Estilos base personalizados para Quasart Style */
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+  
+  * {
+    @apply border-slate-200;
+  }
+}
+
+/* Componentes reutilizables */
+@layer components {
+  .quasart-card {
+    @apply bg-white rounded-2xl shadow-sm border border-slate-100 p-6;
+  }
+  
+  .quasart-button {
+    @apply bg-slate-800 text-white px-4 py-2 rounded-xl font-medium hover:bg-slate-700 transition-colors shadow-sm;
+  }
+  
+  .quasart-button-secondary {
+    @apply bg-white text-slate-700 px-4 py-2 rounded-xl font-medium hover:bg-slate-50 transition-colors border border-slate-200;
+  }
+  
+  .quasart-input {
+    @apply w-full px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-400 focus:border-transparent transition-all;
+  }
+  
+  .quasart-navbar {
+    @apply bg-white shadow-sm border-b border-slate-100;
+  }
+  
+  .quasart-sidebar {
+    @apply w-64 bg-white h-screen shadow-lg flex flex-col;
+  }
+  
+  /* Estados de notificación */
+  .status-disponible {
+    @apply bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .status-vendido {
+    @apply bg-gray-100 text-gray-700 px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .status-stock-bajo {
+    @apply bg-orange-100 text-orange-700 px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  /* Animaciones personalizadas */
+  .quasart-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .quasart-slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  /* Scrollbar personalizado */
+  .quasart-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .quasart-scrollbar::-webkit-scrollbar-track {
+    @apply bg-slate-100;
+  }
+  
+  .quasart-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 rounded-full;
+  }
+  
+  .quasart-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400;
+  }
+}
+
+/* Utilidades personalizadas */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .bg-gradient-quasart {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  }
+  
+  .border-gradient {
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, #e2e8f0, #cbd5e1) border-box;
+    border: 1px solid transparent;
+  }
+  
+  /* Responsive utilities */
+  .mobile-padding {
+    @apply px-4 sm:px-6;
+  }
+  
+  .container-quasart {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Estilos para gráficas de Recharts */
+.recharts-cartesian-axis-tick-value {
+  @apply fill-slate-500 text-xs;
+}
+
+.recharts-legend-item-text {
+  @apply text-slate-600 text-sm;
+}
+
+.recharts-tooltip-wrapper {
+  @apply shadow-lg;
+}
+
+/* Estilos para formularios */
+.form-group {
+  @apply space-y-2;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-slate-700;
+}
+
+.form-input {
+  @apply quasart-input;
+}
+
+.form-select {
+  @apply quasart-input;
+}
+
+.form-checkbox {
+  @apply rounded border-slate-300 text-slate-800 focus:ring-slate-400;
+}
+
+/* Estilos para tablas */
+.quasart-table {
+  @apply w-full;
+}
+
+.quasart-table th {
+  @apply text-left p-4 font-medium text-slate-700 bg-slate-50 border-b border-slate-100;
+}
+
+.quasart-table td {
+  @apply p-4 border-b border-slate-50;
+}
+
+.quasart-table tbody tr:hover {
+  @apply bg-slate-25;
+}
+
+/* Estilos para modales */
+.modal-backdrop {
+  @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4;
+}
+
+.modal-content {
+  @apply bg-white rounded-2xl shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto;
+}
+
+/* Estilos para notificaciones */
+.notification-high {
+  @apply border-l-red-500;
+}
+
+.notification-medium {
+  @apply border-l-yellow-500;
+}
+
+.notification-low {
+  @apply border-l-green-500;
+}
+
+/* Estilos para el dashboard */
+.kpi-card {
+  @apply bg-white p-6 rounded-2xl shadow-sm border border-slate-100;
+}
+
+.kpi-value {
+  @apply text-2xl font-bold text-slate-800;
+}
+
+.kpi-label {
+  @apply font-medium text-slate-600;
+}
+
+.kpi-change-positive {
+  @apply text-sm text-green-600 flex items-center space-x-1;
+}
+
+.kpi-change-negative {
+  @apply text-sm text-red-600 flex items-center space-x-1;
+}
+
+/* Transiciones suaves para estados hover */
+.hover-lift {
+  @apply transition-all duration-200 hover:shadow-md hover:-translate-y-0.5;
+}
+
+.hover-scale {
+  @apply transition-transform duration-200 hover:scale-105;
+}
+
+/* Loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    @apply hidden;
+  }
+  
+  .print-break {
+    page-break-before: always;
+  }
+  
+  body {
+    @apply bg-white;
+  }
+  
+  .quasart-card {
+    @apply shadow-none border border-slate-300;
+  }
+}
