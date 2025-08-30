@@ -1,126 +1,19 @@
 import React, { useState } from 'react';
-import { 
-  User, Package, TrendingUp, Bell, Settings, LogOut, Eye, EyeOff, 
-  Search, Plus, Edit2, Trash2, AlertCircle, CheckCircle, 
-  Clock, Download, Save, Shield, Database, Mail, Smartphone, X, AlertTriangle,
-  DollarSign, Star
-} from 'lucide-react';
-import { LineChart, Line, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-
-// Datos de ejemplo
-const initialProducts = [
-  {
-    id: 1,
-    name: 'Camiseta Vintage Nike',
-    brand: 'Nike',
-    size: 'M',
-    gender: 'Unisex',
-    type: 'Camiseta',
-    status: 'disponible',
-    purchasePrice: 12,
-    salePrice: 25,
-    quantity: 3,
-    addedBy: 'Lorena',
-    dateAdded: '2024-01-15',
-    lastUpdate: '2024-01-20'
-  },
-  {
-    id: 2,
-    name: 'Sudadera Champion Retro',
-    brand: 'Champion',
-    size: 'L',
-    gender: 'Hombre',
-    type: 'Sudadera',
-    status: 'vendido',
-    purchasePrice: 18,
-    salePrice: 35,
-    quantity: 0,
-    addedBy: 'Admin',
-    dateAdded: '2024-01-10',
-    lastUpdate: '2024-01-22'
-  },
-  {
-    id: 3,
-    name: 'Pantalones Levis 501',
-    brand: 'Levis',
-    size: '32',
-    gender: 'Hombre',
-    type: 'Pantalón',
-    status: 'stock-bajo',
-    purchasePrice: 22,
-    salePrice: 45,
-    quantity: 1,
-    addedBy: 'Lorena',
-    dateAdded: '2024-01-12',
-    lastUpdate: '2024-01-19'
-  }
-];
-
-const salesData = [
-  { name: 'Ene', ventas: 1200, compras: 800, beneficio: 400 },
-  { name: 'Feb', ventas: 1800, compras: 1100, beneficio: 700 },
-  { name: 'Mar', ventas: 2200, compras: 1400, beneficio: 800 },
-  { name: 'Abr', ventas: 1900, compras: 1200, beneficio: 700 },
-  { name: 'May', ventas: 2400, compras: 1500, beneficio: 900 },
-  { name: 'Jun', ventas: 2800, compras: 1700, beneficio: 1100 },
-];
-
-const brandData = [
-  { name: 'Nike', ventas: 4500, porcentaje: 28, productos: 45 },
-  { name: 'Adidas', ventas: 3200, porcentaje: 20, productos: 32 },
-  { name: 'Champion', ventas: 2800, porcentaje: 17, productos: 28 },
-];
-
-const categoryData = [
-  { name: 'Camisetas', value: 35, color: '#3B82F6' },
-  { name: 'Sudaderas', value: 28, color: '#10B981' },
-  { name: 'Pantalones', value: 22, color: '#F59E0B' },
-  { name: 'Chaquetas', value: 15, color: '#EF4444' },
-];
-
-const initialNotifications = [
-  {
-    id: 1,
-    type: 'stock_low',
-    title: 'Stock bajo en productos',
-    message: '5 productos tienen stock crítico y necesitan reposición',
-    timestamp: new Date('2024-01-25T10:30:00'),
-    priority: 'high',
-    read: false,
-    actionRequired: true,
-    data: { products: ['Camiseta Nike Vintage', 'Pantalones Levi\'s 501'] }
-  },
-  {
-    id: 2,
-    type: 'sale',
-    title: 'Nueva venta completada',
-    message: 'Chaqueta Adidas Original - €55',
-    timestamp: new Date('2024-01-25T09:15:00'),
-    priority: 'medium',
-    read: false,
-    actionRequired: false,
-    data: { product: 'Chaqueta Adidas Original', amount: 55, buyer: 'Cliente Vinted' }
-  }
-];
+import { User, Package, TrendingUp, Bell, Settings, LogOut, Eye, EyeOff, Search, Plus } from 'lucide-react';
 
 // Componente de Login
 const LoginScreen = ({ onLogin }) => {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async () => {
-    if (!credentials.username || !credentials.password) return;
-    
-    setIsLoading(true);
-    setTimeout(() => {
+  const handleSubmit = () => {
+    if (credentials.username && credentials.password) {
       onLogin({
         username: credentials.username,
         name: credentials.username === 'admin' ? 'Administrador' : 'Lorena',
         role: credentials.username === 'admin' ? 'Fundador' : 'Fundadora'
       });
-      setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -142,7 +35,7 @@ const LoginScreen = ({ onLogin }) => {
                 type="text"
                 value={credentials.username}
                 onChange={(e) => setCredentials({...credentials, username: e.target.value})}
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-400 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-400"
                 placeholder="Introduce tu usuario"
               />
             </div>
@@ -154,7 +47,7 @@ const LoginScreen = ({ onLogin }) => {
                   type={showPassword ? "text" : "password"}
                   value={credentials.password}
                   onChange={(e) => setCredentials({...credentials, password: e.target.value})}
-                  className="w-full px-4 py-3 pr-12 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-400 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 pr-12 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-400"
                   placeholder="Introduce tu contraseña"
                 />
                 <button
@@ -169,21 +62,16 @@ const LoginScreen = ({ onLogin }) => {
 
             <button
               onClick={handleSubmit}
-              disabled={isLoading || !credentials.username || !credentials.password}
-              className="w-full bg-slate-800 text-white py-3 px-6 rounded-xl hover:bg-slate-700 transition-colors font-medium shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-slate-800 text-white py-3 px-6 rounded-xl hover:bg-slate-700 transition-colors font-medium shadow-lg"
             >
-              {isLoading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
+              Iniciar Sesión
             </button>
           </div>
 
           <div className="mt-6 pt-6 border-t border-slate-100">
-            <div className="text-center space-y-2">
-              <p className="text-xs text-slate-500">Usuarios de prueba:</p>
-              <div className="text-xs text-slate-400 space-y-1">
-                <p><strong>admin</strong> / cualquier contraseña</p>
-                <p><strong>lorena</strong> / cualquier contraseña</p>
-              </div>
-            </div>
+            <p className="text-xs text-slate-500 text-center">
+              Prueba con <strong>admin</strong> o <strong>lorena</strong> y cualquier contraseña
+            </p>
           </div>
         </div>
       </div>
@@ -196,7 +84,6 @@ const Sidebar = ({ activeSection, setActiveSection, user, onLogout }) => {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: TrendingUp },
     { id: 'inventory', label: 'Inventario', icon: Package },
-    { id: 'metrics', label: 'Métricas', icon: TrendingUp },
     { id: 'notifications', label: 'Notificaciones', icon: Bell },
     { id: 'settings', label: 'Ajustes', icon: Settings },
   ];
@@ -318,85 +205,46 @@ const Dashboard = () => {
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
         <h2 className="text-xl font-bold text-slate-800 mb-6">Actividad Reciente</h2>
         <div className="space-y-4">
-          {[
-            { action: 'Producto añadido', item: 'Camiseta Vintage Nike', user: 'Lorena', time: 'Hace 2 horas' },
-            { action: 'Venta completada', item: 'Chaqueta Adidas', user: 'Sistema', time: 'Hace 4 horas' },
-            { action: 'Stock actualizado', item: 'Pantalones Levi\'s', user: 'Admin', time: 'Hace 6 horas' },
-            { action: 'Producto añadido', item: 'Sudadera Champion', user: 'Lorena', time: 'Ayer' },
-          ].map((activity, index) => (
-            <div key={index} className="flex items-center justify-between py-3 border-b border-slate-50 last:border-0">
-              <div>
-                <p className="font-medium text-slate-800">{activity.action}: {activity.item}</p>
-                <p className="text-sm text-slate-500">Por {activity.user}</p>
-              </div>
-              <span className="text-sm text-slate-400">{activity.time}</span>
+          <div className="flex items-center justify-between py-3 border-b border-slate-50">
+            <div>
+              <p className="font-medium text-slate-800">Producto añadido: Camiseta Vintage Nike</p>
+              <p className="text-sm text-slate-500">Por Lorena</p>
             </div>
-          ))}
+            <span className="text-sm text-slate-400">Hace 2 horas</span>
+          </div>
+          <div className="flex items-center justify-between py-3 border-b border-slate-50">
+            <div>
+              <p className="font-medium text-slate-800">Venta completada: Chaqueta Adidas</p>
+              <p className="text-sm text-slate-500">Por Sistema</p>
+            </div>
+            <span className="text-sm text-slate-400">Hace 4 horas</span>
+          </div>
+          <div className="flex items-center justify-between py-3">
+            <div>
+              <p className="font-medium text-slate-800">Stock actualizado: Pantalones Levi's</p>
+              <p className="text-sm text-slate-500">Por Admin</p>
+            </div>
+            <span className="text-sm text-slate-400">Hace 6 horas</span>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-// Componente Inventario
+// Componente Inventario Simple
 const Inventory = () => {
-  const [products, setProducts] = useState(initialProducts);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterBrand, setFilterBrand] = useState('');
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    brand: '',
-    size: '',
-    gender: '',
-    type: '',
-    purchasePrice: '',
-    salePrice: '',
-    quantity: 1
-  });
+  
+  const products = [
+    { id: 1, name: 'Camiseta Vintage Nike', brand: 'Nike', price: '25€', status: 'Disponible' },
+    { id: 2, name: 'Sudadera Champion', brand: 'Champion', price: '35€', status: 'Vendido' },
+    { id: 3, name: 'Pantalones Levis', brand: 'Levis', price: '45€', status: 'Stock Bajo' }
+  ];
 
-  const uniqueBrands = [...new Set(products.map(p => p.brand))];
-  const filteredProducts = products.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesBrand = filterBrand === '' || product.brand === filterBrand;
-    return matchesSearch && matchesBrand;
-  });
-
-  const handleSubmit = () => {
-    if (!formData.name || !formData.brand) return;
-    
-    const newProduct = {
-      ...formData,
-      id: Date.now(),
-      status: parseInt(formData.quantity) <= 1 ? 'stock-bajo' : 'disponible',
-      addedBy: 'Admin',
-      dateAdded: new Date().toISOString().split('T')[0],
-      lastUpdate: new Date().toISOString().split('T')[0],
-      purchasePrice: parseFloat(formData.purchasePrice) || 0,
-      salePrice: parseFloat(formData.salePrice) || 0,
-      quantity: parseInt(formData.quantity) || 1
-    };
-
-    setProducts([...products, newProduct]);
-    setFormData({
-      name: '',
-      brand: '',
-      size: '',
-      gender: '',
-      type: '',
-      purchasePrice: '',
-      salePrice: '',
-      quantity: 1
-    });
-    setShowAddModal(false);
-  };
-
-  const stats = {
-    total: products.length,
-    available: products.filter(p => p.status === 'disponible').length,
-    lowStock: products.filter(p => p.status === 'stock-bajo').length,
-    sold: products.filter(p => p.status === 'vendido').length
-  };
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="p-6">
@@ -405,631 +253,126 @@ const Inventory = () => {
         <p className="text-slate-600">Gestiona todos los productos de Quasart Style</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-2xl font-bold text-slate-800">{stats.total}</p>
-              <p className="text-sm text-slate-600">Total</p>
-            </div>
-            <Package className="text-blue-500" size={24} />
-          </div>
-        </div>
-        <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-2xl font-bold text-green-600">{stats.available}</p>
-              <p className="text-sm text-slate-600">Disponibles</p>
-            </div>
-            <CheckCircle className="text-green-500" size={24} />
-          </div>
-        </div>
-        <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-2xl font-bold text-orange-600">{stats.lowStock}</p>
-              <p className="text-sm text-slate-600">Stock Bajo</p>
-            </div>
-            <AlertCircle className="text-orange-500" size={24} />
-          </div>
-        </div>
-        <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-2xl font-bold text-gray-600">{stats.sold}</p>
-              <p className="text-sm text-slate-600">Vendidos</p>
-            </div>
-            <Package className="text-gray-500" size={24} />
-          </div>
-        </div>
-      </div>
-
       <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6 mb-6">
-        <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-          <div className="relative flex-1 max-w-md">
+        <div className="flex justify-between items-center">
+          <div className="relative">
             <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" />
             <input
               type="text"
               placeholder="Buscar productos..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-400 focus:border-transparent"
+              className="pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-400"
             />
           </div>
-
-          <div className="flex flex-wrap gap-3">
-            <select
-              value={filterBrand}
-              onChange={(e) => setFilterBrand(e.target.value)}
-              className="px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-400"
-            >
-              <option value="">Todas las marcas</option>
-              {uniqueBrands.map(brand => (
-                <option key={brand} value={brand}>{brand}</option>
-              ))}
-            </select>
-
-            <button
-              onClick={() => setShowAddModal(true)}
-              className="bg-slate-800 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors flex items-center space-x-2"
-            >
-              <Plus size={16} />
-              <span>Añadir Producto</span>
-            </button>
-          </div>
+          <button className="bg-slate-800 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors flex items-center space-x-2">
+            <Plus size={16} />
+            <span>Añadir Producto</span>
+          </button>
         </div>
       </div>
 
       <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-slate-50 border-b border-slate-100">
-              <tr>
-                <th className="text-left p-4 font-medium text-slate-700">Producto</th>
-                <th className="text-left p-4 font-medium text-slate-700">Detalles</th>
-                <th className="text-left p-4 font-medium text-slate-700">Estado</th>
-                <th className="text-left p-4 font-medium text-slate-700">Precios</th>
-                <th className="text-left p-4 font-medium text-slate-700">Cantidad</th>
+        <table className="w-full">
+          <thead className="bg-slate-50">
+            <tr>
+              <th className="text-left p-4 font-medium text-slate-700">Producto</th>
+              <th className="text-left p-4 font-medium text-slate-700">Marca</th>
+              <th className="text-left p-4 font-medium text-slate-700">Precio</th>
+              <th className="text-left p-4 font-medium text-slate-700">Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredProducts.map((product) => (
+              <tr key={product.id} className="border-b border-slate-50">
+                <td className="p-4 font-medium text-slate-800">{product.name}</td>
+                <td className="p-4 text-slate-600">{product.brand}</td>
+                <td className="p-4 text-slate-600">{product.price}</td>
+                <td className="p-4">
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    product.status === 'Disponible' ? 'bg-green-100 text-green-700' :
+                    product.status === 'Vendido' ? 'bg-gray-100 text-gray-700' :
+                    'bg-orange-100 text-orange-700'
+                  }`}>
+                    {product.status}
+                  </span>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {filteredProducts.map((product) => (
-                <tr key={product.id} className="border-b border-slate-50">
-                  <td className="p-4">
-                    <div>
-                      <p className="font-medium text-slate-800">{product.name}</p>
-                      <p className="text-sm text-slate-500">{product.brand}</p>
-                    </div>
-                  </td>
-                  <td className="p-4">
-                    <div className="text-sm text-slate-600">
-                      <p>Talla: {product.size}</p>
-                      <p>{product.gender} • {product.type}</p>
-                    </div>
-                  </td>
-                  <td className="p-4">
-                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                      product.status === 'disponible' ? 'bg-green-100 text-green-700' :
-                      product.status === 'vendido' ? 'bg-gray-100 text-gray-700' :
-                      'bg-orange-100 text-orange-700'
-                    }`}>
-                      {product.status.replace('-', ' ')}
-                    </span>
-                  </td>
-                  <td className="p-4">
-                    <div className="text-sm">
-                      <p className="text-slate-600">Compra: €{product.purchasePrice}</p>
-                      <p className="font-medium text-slate-800">Venta: €{product.salePrice}</p>
-                    </div>
-                  </td>
-                  <td className="p-4">
-                    <span className="font-medium text-slate-800">{product.quantity}</span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
-
-      {showAddModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
-              <h3 className="text-xl font-bold text-slate-800 mb-6">Añadir Nuevo Producto</h3>
-              
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Nombre del producto *</label>
-                  <input
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-400"
-                    placeholder="ej. Camiseta Vintage Nike"
-                  />
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Marca *</label>
-                    <input
-                      type="text"
-                      value={formData.brand}
-                      onChange={(e) => setFormData({...formData, brand: e.target.value})}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-400"
-                      placeholder="Nike"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Talla</label>
-                    <input
-                      type="text"
-                      value={formData.size}
-                      onChange={(e) => setFormData({...formData, size: e.target.value})}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-400"
-                      placeholder="M"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Precio Compra (€)</label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      value={formData.purchasePrice}
-                      onChange={(e) => setFormData({...formData, purchasePrice: e.target.value})}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-400"
-                      placeholder="12.00"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Precio Venta (€)</label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      value={formData.salePrice}
-                      onChange={(e) => setFormData({...formData, salePrice: e.target.value})}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-400"
-                      placeholder="25.00"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Cantidad</label>
-                  <input
-                    type="number"
-                    min="0"
-                    value={formData.quantity}
-                    onChange={(e) => setFormData({...formData, quantity: parseInt(e.target.value) || 0})}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-400"
-                  />
-                </div>
-              </div>
-
-              <div className="flex justify-end space-x-3 mt-6">
-                <button
-                  onClick={() => {
-                    setShowAddModal(false);
-                    setFormData({
-                      name: '',
-                      brand: '',
-                      size: '',
-                      gender: '',
-                      type: '',
-                      purchasePrice: '',
-                      salePrice: '',
-                      quantity: 1
-                    });
-                  }}
-                  className="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
-                >
-                  Cancelar
-                </button>
-                <button
-                  onClick={handleSubmit}
-                  className="bg-slate-800 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors"
-                >
-                  Añadir Producto
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
 
-// Componente Métricas
-const Metrics = () => {
-  const [activeTab, setActiveTab] = useState('overview');
-
-  const kpis = {
-    totalRevenue: 16100,
-    totalProfit: 5400,
-    averageMargin: 67.2,
-    totalProducts: 156
-  };
-
-  const TabButton = ({ id, label, isActive, onClick }) => (
-    <button
-      onClick={() => onClick(id)}
-      className={`px-6 py-3 rounded-lg font-medium transition-colors ${
-        isActive 
-          ? 'bg-slate-800 text-white' 
-          : 'text-slate-600 hover:bg-slate-100'
-      }`}
-    >
-      {label}
-    </button>
-  );
-
-  const StatCard = ({ title, value, change, icon: Icon, color = 'blue' }) => (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-      <div className="flex items-center justify-between mb-4">
-        <div className={`w-12 h-12 ${color === 'blue' ? 'bg-blue-100' : color === 'green' ? 'bg-green-100' : color === 'orange' ? 'bg-orange-100' : 'bg-purple-100'} rounded-xl flex items-center justify-center`}>
-          <Icon size={24} className={`${color === 'blue' ? 'text-blue-600' : color === 'green' ? 'text-green-600' : color === 'orange' ? 'text-orange-600' : 'text-purple-600'}`} />
-        </div>
-        <span className="text-2xl font-bold text-slate-800">{value}</span>
-      </div>
-      <h3 className="font-medium text-slate-600 mb-1">{title}</h3>
-      {change && (
-        <div className="flex items-center space-x-1">
-          <TrendingUp size={16} className="text-green-500" />
-          <span className="text-sm font-medium text-green-600">+{change}%</span>
-        </div>
-      )}
-    </div>
-  );
-
-  return (
-    <div className="p-6">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-800 mb-2">Métricas y Análisis</h1>
-        <p className="text-slate-600">Dashboard completo de rendimiento de Quasart Style</p>
-      </div>
-
-      <div className="flex flex-wrap gap-2 mb-6">
-        <TabButton id="overview" label="Resumen" isActive={activeTab === 'overview'} onClick={setActiveTab} />
-        <TabButton id="financial" label="Financiero" isActive={activeTab === 'financial'} onClick={setActiveTab} />
-        <TabButton id="products" label="Productos" isActive={activeTab === 'products'} onClick={setActiveTab} />
-      </div>
-
-      {activeTab === 'overview' && (
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <StatCard title="Ingresos Totales" value={`€${kpis.totalRevenue.toLocaleString()}`} change={18.5} icon={DollarSign} color="green" />
-            <StatCard title="Beneficio Total" value={`€${kpis.totalProfit.toLocaleString()}`} change={22.3} icon={TrendingUp} color="blue" />
-            <StatCard title="Margen Promedio" value={`${kpis.averageMargin}%`} change={3.2} icon={Star} color="purple" />
-            <StatCard title="Productos Activos" value={kpis.totalProducts} change={12.1} icon={Package} color="orange" />
-          </div>
-
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-            <h3 className="text-xl font-bold text-slate-800 mb-6">Evolución de Ventas</h3>
-            <ResponsiveContainer width="100%" height={300}>
-              <AreaChart data={salesData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="name" stroke="#64748b" />
-                <YAxis stroke="#64748b" />
-                <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '8px' }} />
-                <Area type="monotone" dataKey="ventas" stackId="1" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.6} />
-                <Area type="monotone" dataKey="beneficio" stackId="2" stroke="#10b981" fill="#10b981" fillOpacity={0.8} />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      )}
-
-      {activeTab === 'financial' && (
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-            <h3 className="text-xl font-bold text-slate-800 mb-6">Cuenta de Resultados</h3>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center py-2 border-b border-slate-100">
-                <span className="font-medium text-slate-700">Ingresos por Ventas</span>
-                <span className="text-green-600 font-semibold">€{kpis.totalRevenue.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between items-center py-2 border-b border-slate-100">
-                <span className="font-medium text-slate-700">Coste de Productos Vendidos</span>
-                <span className="text-red-600 font-semibold">-€{(kpis.totalRevenue - kpis.totalProfit).toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between items-center py-3 bg-slate-50 px-4 rounded-lg">
-                <span className="font-bold text-slate-800">Beneficio Neto</span>
-                <span className="text-green-600 font-bold text-lg">€{kpis.totalProfit.toLocaleString()}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {activeTab === 'products' && (
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-            <h3 className="text-xl font-bold text-slate-800 mb-6">Distribución por Categorías</h3>
-            <ResponsiveContainer width="100%" height={250}>
-              <PieChart>
-                <Pie
-                  data={categoryData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={100}
-                  paddingAngle={5}
-                  dataKey="value"
-                >
-                  {categoryData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-// Componente Notificaciones
+// Notificaciones Simple
 const Notifications = () => {
-  const [notifications, setNotifications] = useState(initialNotifications);
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const filteredNotifications = notifications.filter(notification =>
-    notification.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    notification.message.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const markAsRead = (id) => {
-    setNotifications(notifications.map(n => 
-      n.id === id ? { ...n, read: true } : n
-    ));
-  };
-
-  const deleteNotification = (id) => {
-    setNotifications(notifications.filter(n => n.id !== id));
-  };
-
-  const getNotificationIcon = (type) => {
-    switch (type) {
-      case 'stock_low': return <AlertTriangle className="text-orange-500" size={20} />;
-      case 'sale': return <TrendingUp className="text-green-500" size={20} />;
-      default: return <Bell className="text-slate-500" size={20} />;
-    }
-  };
-
-  const formatTime = (timestamp) => {
-    const now = new Date();
-    const diff = now - timestamp;
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    
-    if (hours < 24) return `Hace ${hours} horas`;
-    return timestamp.toLocaleDateString();
-  };
-
   return (
     <div className="p-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-800 mb-2">Centro de Notificaciones</h1>
-        <p className="text-slate-600">Mantente al día con todas las actividades de Quasart Style</p>
+        <h1 className="text-3xl font-bold text-slate-800 mb-2">Notificaciones</h1>
+        <p className="text-slate-600">Centro de alertas y actividades</p>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6 mb-6">
-        <div className="relative max-w-md">
-          <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" />
-          <input
-            type="text"
-            placeholder="Buscar notificaciones..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-400 focus:border-transparent"
-          />
+      <div className="space-y-4">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-100 border-l-4 border-l-red-500 p-6">
+          <h3 className="font-semibold text-slate-900 mb-2">Stock bajo en productos</h3>
+          <p className="text-slate-600">5 productos necesitan reposición urgente</p>
+          <span className="text-sm text-slate-400 mt-2 block">Hace 2 horas</span>
         </div>
-      </div>
 
-      <div className="space-y-3">
-        {filteredNotifications.length === 0 ? (
-          <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-12 text-center">
-            <Bell size={48} className="text-slate-300 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-slate-800 mb-2">No hay notificaciones</h3>
-            <p className="text-slate-500">No se encontraron notificaciones</p>
-          </div>
-        ) : (
-          filteredNotifications.map((notification) => (
-            <div key={notification.id} className="bg-white rounded-xl shadow-sm border border-slate-100 border-l-4 border-l-red-500 p-6">
-              <div className="flex items-start justify-between">
-                <div className="flex items-start space-x-4 flex-1">
-                  <div className="flex-shrink-0 mt-1">
-                    {getNotificationIcon(notification.type)}
-                  </div>
-                  
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-2 mb-1">
-                      <h3 className="font-semibold text-slate-900">{notification.title}</h3>
-                      {!notification.read && <div className="w-2 h-2 bg-blue-500 rounded-full"></div>}
-                    </div>
-                    
-                    <p className="text-slate-600 mb-2">{notification.message}</p>
-                    
-                    <div className="flex items-center space-x-4 text-sm text-slate-500">
-                      <span className="flex items-center space-x-1">
-                        <Clock size={14} />
-                        <span>{formatTime(notification.timestamp)}</span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-2 ml-4">
-                  {!notification.read && (
-                    <button
-                      onClick={() => markAsRead(notification.id)}
-                      className="p-2 text-slate-400 hover:text-blue-600 rounded-lg transition-colors"
-                    >
-                      <CheckCircle size={18} />
-                    </button>
-                  )}
-                  <button
-                    onClick={() => deleteNotification(notification.id)}
-                    className="p-2 text-slate-400 hover:text-red-600 rounded-lg transition-colors"
-                  >
-                    <X size={18} />
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))
-        )}
+        <div className="bg-white rounded-xl shadow-sm border border-slate-100 border-l-4 border-l-green-500 p-6">
+          <h3 className="font-semibold text-slate-900 mb-2">Nueva venta completada</h3>
+          <p className="text-slate-600">Chaqueta Adidas vendida por 55€</p>
+          <span className="text-sm text-slate-400 mt-2 block">Hace 4 horas</span>
+        </div>
       </div>
     </div>
   );
 };
 
-// Componente Configuración
+// Configuración Simple
 const SettingsComponent = () => {
-  const [activeTab, setActiveTab] = useState('profile');
-  const [profileData, setProfileData] = useState({
-    name: 'Administrador',
-    email: 'admin@quasartstyle.com',
-    role: 'Fundador',
-    phone: '+34 666 777 888'
-  });
-
-  const TabButton = ({ id, label, icon: Icon, isActive, onClick }) => (
-    <button
-      onClick={() => onClick(id)}
-      className={`flex items-center space-x-3 w-full px-4 py-3 rounded-lg font-medium transition-colors ${
-        isActive ? 'bg-slate-800 text-white' : 'text-slate-600 hover:bg-slate-100'
-      }`}
-    >
-      <Icon size={20} />
-      <span>{label}</span>
-    </button>
-  );
-
   return (
     <div className="p-6">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-slate-800 mb-2">Ajustes</h1>
-        <p className="text-slate-600">Configura tu experiencia en Quasart Style</p>
+        <p className="text-slate-600">Configura tu cuenta</p>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-6">
-        <div className="lg:w-64">
-          <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-4">
-            <nav className="space-y-2">
-              <TabButton id="profile" label="Perfil" icon={User} isActive={activeTab === 'profile'} onClick={setActiveTab} />
-              <TabButton id="notifications" label="Notificaciones" icon={Bell} isActive={activeTab === 'notifications'} onClick={setActiveTab} />
-              <TabButton id="security" label="Seguridad" icon={Shield} isActive={activeTab === 'security'} onClick={setActiveTab} />
-            </nav>
+      <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6">
+        <h2 className="text-xl font-bold text-slate-800 mb-6">Perfil de Usuario</h2>
+        
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-2">Nombre</label>
+            <input
+              type="text"
+              defaultValue="Administrador"
+              className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-400"
+            />
           </div>
-        </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-2">Email</label>
+            <input
+              type="email"
+              defaultValue="admin@quasartstyle.com"
+              className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-400"
+            />
+          </div>
 
-        <div className="flex-1">
-          {activeTab === 'profile' && (
-            <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6">
-              <h2 className="text-xl font-bold text-slate-800 mb-6">Información del Perfil</h2>
-              
-              <div className="space-y-6">
-                <div className="flex items-center space-x-6">
-                  <div className="w-20 h-20 bg-slate-800 rounded-xl flex items-center justify-center">
-                    <span className="text-2xl font-bold text-white">{profileData.name.charAt(0)}</span>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-slate-800">{profileData.name}</h3>
-                    <p className="text-slate-600">{profileData.role}</p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">Nombre completo</label>
-                    <input
-                      type="text"
-                      value={profileData.name}
-                      onChange={(e) => setProfileData({...profileData, name: e.target.value})}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-400"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">Email</label>
-                    <input
-                      type="email"
-                      value={profileData.email}
-                      onChange={(e) => setProfileData({...profileData, email: e.target.value})}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-400"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex justify-end">
-                  <button className="bg-slate-800 text-white px-6 py-2 rounded-lg hover:bg-slate-700 transition-colors flex items-center space-x-2">
-                    <Save size={16} />
-                    <span>Guardar cambios</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'notifications' && (
-            <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6">
-              <h2 className="text-xl font-bold text-slate-800 mb-6">Preferencias de Notificaciones</h2>
-              
-              <div className="space-y-4">
-                <label className="flex items-center justify-between p-3 border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50">
-                  <div className="flex items-center space-x-3">
-                    <Mail className="text-slate-500" size={20} />
-                    <div>
-                      <p className="font-medium text-slate-800">Notificaciones por email</p>
-                      <p className="text-sm text-slate-600">Recibe actualizaciones en tu correo</p>
-                    </div>
-                  </div>
-                  <input type="checkbox" className="rounded border-slate-300 text-slate-800" />
-                </label>
-
-                <label className="flex items-center justify-between p-3 border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50">
-                  <div className="flex items-center space-x-3">
-                    <Smartphone className="text-slate-500" size={20} />
-                    <div>
-                      <p className="font-medium text-slate-800">Notificaciones push</p>
-                      <p className="text-sm text-slate-600">Alertas en tiempo real en el navegador</p>
-                    </div>
-                  </div>
-                  <input type="checkbox" className="rounded border-slate-300 text-slate-800" />
-                </label>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'security' && (
-            <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6">
-              <h2 className="text-xl font-bold text-slate-800 mb-6">Configuración de Seguridad</h2>
-              
-              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <div className="flex items-start space-x-3">
-                  <Shield className="text-blue-600 mt-0.5" size={20} />
-                  <div>
-                    <h4 className="font-medium text-blue-900">Estado de seguridad: Bueno</h4>
-                    <p className="text-sm text-blue-700 mt-1">Tu cuenta está protegida con las medidas básicas de seguridad.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+          <button className="bg-slate-800 text-white px-6 py-2 rounded-lg hover:bg-slate-700 transition-colors">
+            Guardar Cambios
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-// Componente Principal de la App
+// App Principal
 function App() {
   const [user, setUser] = useState(null);
   const [activeSection, setActiveSection] = useState('dashboard');
@@ -1049,8 +392,6 @@ function App() {
         return <Dashboard />;
       case 'inventory':
         return <Inventory />;
-      case 'metrics':
-        return <Metrics />;
       case 'notifications':
         return <Notifications />;
       case 'settings':
